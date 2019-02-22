@@ -1,0 +1,39 @@
+@font-face {
+    font-family: Brandon;
+    src: url(./fonts/brandon-grotesque-black-58a8a3e824392.otf);
+}
+
+body {
+    min-width: 400px;
+}
+
+#hero {
+    font-family: Brandon;
+    color: white;
+    text-align: center;
+    font-size: 45px;
+    background-color: black;
+}
+
+.nav {
+    margin: 0;
+}
+
+.nav a {
+    padding: 10px 15px;
+    text-decoration: none;
+    text-align: center;
+}
+
+body {
+    margin: 0;
+}
+
+main {
+    margin: 10px;
+}
+
+.thickStroke {
+    box-shadow: 5px 0px 0px black, -5px 0px 0px black, 0px -5px 0px black, 0px 5px 0px black, -5px -5px 0px black, 5px 5px 0px black, -5px 5px 0px black, 5px -5px 0px black;
+
+}
