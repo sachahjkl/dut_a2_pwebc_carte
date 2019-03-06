@@ -183,7 +183,7 @@ function ajaxToilets(url) {
 
 function displayToilets(data) {
     toilets.clearLayers();
-    $("#nbResults").text(data.nhits);
+    $("#nbResults").text(data.records.length);
     $("#results").text("");
     if (data.nhits == 0) {
         $("#results").text("Pas de toilettes trouvées");
