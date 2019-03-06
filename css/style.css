@@ -13,9 +13,8 @@
 
 #mapid {
     min-height: 500px;
-    min-width: 600px;
+    min-width: 400px;
     height: 80vh
-    
 }
 
 #optionsDiv, #resultBox{
@@ -24,6 +23,7 @@
     max-height: 80vh;
     overflow: scroll;
 }
+
 
 #mapid{
     z-index: 2;

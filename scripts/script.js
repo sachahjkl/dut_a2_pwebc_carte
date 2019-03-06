@@ -13,8 +13,8 @@ const defLang = "fr";
 var markerGPS;
 var toilets;
 var toiletIcon = L.icon({
-    iconUrl: '../imgs/markers/toiletmarkersmall.png',
-    shadowUrl: '../imgs/markers/toiletshadowsmall.png',
+    iconUrl: './imgs/markers/toiletmarkersmall.png',
+    shadowUrl: './imgs/markers/toiletshadowsmall.png',
 
     iconSize: [43, 56], // size of the icon
     shadowSize: [63, 69], // size of the shadow
@@ -67,7 +67,7 @@ function onDrop(event, ui) {
 function defaultValues() {
     $("#rows").val(defAmount);
     $("#dist").val(defDistance);
-    $("#results").html("<p>Pas encore de résultat.<p>")
+    $("#results").html("<p class='mx-2'>Pas encore de résultat.<p>")
     $("#dist-value").text($("#dist").val() + " mètres")
     $("#switchOptions").prop("checked", false);
     $("#check-rows").prop("checked", true);
