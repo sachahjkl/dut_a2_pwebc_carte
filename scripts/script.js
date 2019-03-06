@@ -23,7 +23,6 @@ var toiletIcon = L.icon({
     popupAnchor: [0, -76] // point from which the popup should open relative to the iconAnchor
 });
 
-
 $(document).ready(function () {
     initMap(X, Y, zoom)
     assignOn();
@@ -31,6 +30,24 @@ $(document).ready(function () {
     console.log("ready")
 });
 
+function initMap(xInit, yInit, zoom) {
+    mymap = L.map('mapid').setView([xInit, yInit], zoom);
+    L.tileLayer(`https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}`, {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18,
+        minZoom: 12,
+        id: 'mapbox.streets',
+        accessToken: token
+    }).addTo(mymap);
+    mymap.setMaxBounds(mymap.getBounds());
+    mymap.setZoom(zoom + 1);
+    toilets = L.layerGroup().addTo(mymap);
+
+    $("#mapid").droppable({
+        drop: onDrop
+    });
+    console.log("initMap")
+}
 
 function loadArrondissements() {
     var selectArrond = $("#arrond");
@@ -39,6 +56,12 @@ function loadArrondissements() {
     for (var i = 2; i <= 20; ++i) {
         selectArrond.append(`<option value=${i}>${i}ème</option>`);
     }
+}
+
+function onDrop(event, ui) {
+    var elMarker = ui.draggable.data("marker");
+    console.log(elMarker.getLatLng());
+    mymap.setView(elMarker.getLatLng(), 18);
 }
 
 function defaultValues() {
@@ -64,7 +87,7 @@ function switchOptions() {
             $('#' + options[i].id).prop("disabled", state);
         console.log(options[i].id);
     }
-    console.log("input disabled: " + state)
+    console.log("options disabled: " + state)
 }
 
 function able() {
@@ -88,24 +111,6 @@ function assignOn() {
     $("#check-arrond").on("change", able);
     $("#check-dist").on("change", able);
 }
-
-function initMap(xInit, yInit, zoom) {
-    mymap = L.map('mapid').setView([xInit, yInit], zoom);
-    L.tileLayer(`https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}`, {
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        maxZoom: 18,
-        minZoom: 12,
-        id: 'mapbox.streets',
-        accessToken: token
-    }).addTo(mymap);
-    mymap.setMaxBounds(mymap.getBounds());
-    mymap.setZoom(zoom + 1);
-    toilets = L.layerGroup().addTo(mymap);
-
-    $("#mapid").droppable();
-    console.log("initMap")
-}
-
 
 function centerAtGPS() {
     if (navigator.geolocation) {
@@ -180,7 +185,7 @@ function displayToilets(data) {
     toilets.clearLayers();
     $("#nbResults").text(data.nhits);
     $("#results").text("");
-    if(data.nhits == 0){
+    if (data.nhits == 0) {
         $("#results").text("Pas de toilettes trouvées");
     }
     console.log(data.records);
@@ -193,14 +198,23 @@ function displayToilets(data) {
         <b>Identifiant : </b>${f.identifiant.toString()}<br>
         `;
         $("#results").append(`
-        <div class='card card-body shadow-sm draggable col-2 m-2'>  
-        <h5>Test</h5>
+        <div class='card card-body shadow-sm draggable col-auto m-2' id='id_${f.objectid}'>  
+        <h5>${(f.numero_voie == undefined ? "": f.numero_voie +" ")+ f.nom_voie}</h5>
+        <b>Arrondissement : </b>${f.arrondissement}<br>
+        <b>Horaires d'ouverture : </b>${f.horaires_ouverture}<br>
+        <b>Identifiant : </b>${f.identifiant.toString()}<br>
         </div>`);
-        $(".draggable").draggable({
-            revert: true
-        })
-        L.marker(f.geom_x_y, {
+
+        var elMarker = L.marker(f.geom_x_y, {
             icon: toiletIcon
         }).bindPopup(popup).addTo(toilets);
+        $(`#id_${f.objectid}`).data("marker", elMarker);
     }
+    $(".draggable").draggable({
+        revert: true,
+        appendTo: 'body',
+        containment: 'window',
+        scroll: false,
+        helper: 'clone'
+    })
 }
