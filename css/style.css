@@ -4,7 +4,7 @@
 }
 
 body {
-    min-width: 400px;
+    min-width: 980px;
 }
 
 #hero {
@@ -15,25 +15,22 @@ body {
     background-color: black;
 }
 
-.nav {
-    margin: 0;
+#mapid {
+    min-height: 500px;
+    min-width: 400px
 }
 
-.nav a {
-    padding: 10px 15px;
-    text-decoration: none;
-    text-align: center;
+#optionsDiv{
+    min-width: 300px;
+    min-height: 400px;
+    max-height: 500px;
+    overflow: scroll;
 }
 
-body {
-    margin: 0;
+#mapid{
+    z-index: 2;
 }
 
-main {
-    margin: 10px;
-}
-
-.thickStroke {
-    box-shadow: 5px 0px 0px black, -5px 0px 0px black, 0px -5px 0px black, 0px 5px 0px black, -5px -5px 0px black, 5px 5px 0px black, -5px 5px 0px black, 5px -5px 0px black;
-
+.draggable{
+    z-index: 3;
 }
