@@ -3,6 +3,6 @@ description: "find toilets nearby"
 topics: []
 homepage: ""
 source:
-  provider: gitlab
+  provider: github
   namespace: "sachahjkl"
   path: "sachahjkl/dut_a2_pwebc_carte"
