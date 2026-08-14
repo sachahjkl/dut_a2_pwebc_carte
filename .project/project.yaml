@@ -1,8 +1,0 @@
-name: "dut_a2_pwebc_carte"
-description: "find toilets nearby"
-topics: []
-homepage: ""
-source:
-  provider: github
-  namespace: "sachahjkl"
-  path: "sachahjkl/dut_a2_pwebc_carte"
