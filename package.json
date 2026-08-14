@@ -1,0 +1,13 @@
+{
+  "name": "dut-a2-pwebc-carte",
+  "private": true,
+  "scripts": {
+    "lint": "oxlint scripts/script.js",
+    "format": "oxfmt --write .",
+    "format:check": "oxfmt --check ."
+  },
+  "devDependencies": {
+    "oxfmt": "^0.63.0",
+    "oxlint": "^1.78.0"
+  }
+}

@@ -1,34 +1,34 @@
 @font-face {
-    font-family: Brandon;
-    src: url(./fonts/brandon-grotesque-black-58a8a3e824392.otf);
+  font-family: Brandon;
+  src: url(./fonts/brandon-grotesque-black-58a8a3e824392.otf);
 }
 
 #hero {
-    font-family: Brandon;
-    color: white;
-    text-align: center;
-    font-size: 45px;
-    background-color: black;
+  font-family: Brandon;
+  color: white;
+  text-align: center;
+  font-size: 45px;
+  background-color: black;
 }
 
 #mapid {
-    min-height: 500px;
-    min-width: 400px;
-    height: 80vh
+  min-height: 500px;
+  min-width: 400px;
+  height: 80vh;
 }
 
-#optionsDiv, #resultBox{
-    min-width: 200px;
-    min-height: 400px;
-    max-height: 80vh;
-    overflow: scroll;
+#optionsDiv,
+#resultBox {
+  min-width: 200px;
+  min-height: 400px;
+  max-height: 80vh;
+  overflow: scroll;
 }
 
-
-#mapid{
-    z-index: 2;
+#mapid {
+  z-index: 2;
 }
 
-.draggable{
-    z-index: 5;
+.draggable {
+  z-index: 5;
 }
