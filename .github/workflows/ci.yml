@@ -15,7 +15,16 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  check:
+    runs-on: [self-hosted, nixos]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - run: nix flake check --print-build-logs
+
   deploy:
+    needs: check
     runs-on: [self-hosted, nixos]
     environment:
       name: github-pages
@@ -24,17 +33,12 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - run: nix shell nixpkgs#nodejs --command npm ci
-      - run: nix shell nixpkgs#nodejs --command npm run format:check
-      - run: nix shell nixpkgs#nodejs --command npm run lint
-      - run: nix shell nixpkgs#actionlint --command actionlint
       # The external orchestrator must enable Pages with build_type=workflow.
       - uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5.0.0
-      - name: Prepare site
+      - name: Build site
         run: |
-          mkdir .public
-          cp -r -- * .public
-          mv .public public
+          nix build --print-build-logs
+          cp -rL result public
       - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
           path: public
